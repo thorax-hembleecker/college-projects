@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Lab 9 - HTML Forms</title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<h1>HTML Forms</h1>
+
+		<form method="post" action="#">
+			<label for="first">First name:</label>
+			<input type="text" name="first" id="first">
+			<br><br>
+			<label for="last">Last name:</label>
+			<input type="text" name="last" id="last">
+			<br><br>
+			<label for="email">Email:</label>
+			<input type="email" name="email" id="email">
+			<br><br>
+		<fieldset>
+		<legend>Sign up for our newsletters!</legend>
+			<input type="checkbox" name="daily" id="daily">
+			<label for="daily">North Dumpling Daily</label>
+			<br>
+			<input type="checkbox" name="segway" id="segway">
+			<label for="segway">Segway of the Month</label>
+			<br>
+			<input type="checkbox" name="blart" id="blart">
+			<label for="blart">Paul Blart Fan Club</label>
+			<br>
+		</fieldset>
+			<br>
+		<fieldset>
+		<legend>Who is your favorite historical owner of North Dumpling Island?</legend>
+			<input type="radio" name="winthrop" id="winthrop">
+			<label for="winthrop">John Winthrop</label>
+			<br>
+			<input type="radio" name="gladstone" id="gladstone">
+			<label for="gladstone">Wally Gladstone</label>
+			<br>
+			<input type="radio" name="washburn" id="washburn">
+			<label for="washburn">George Washburn</label>
+			<br>
+			<input type="radio" name="levitt" id="levitt">
+			<label for="levitt">David Levitt</label>
+			<br>
+		</fieldset>
+			<br>
+
+			<label for="about">Finally, tell us about yourself! Please include your social security number and bank information.</label>
+			<br>
+			<textarea name="about" id="about" rows="5" cols="80"></textarea>
+			
+			<br><br>
+			
+			<input type="submit" value="Heck yeah!">
+			<input type="reset">
+		</form>
+	</body>
+</html>

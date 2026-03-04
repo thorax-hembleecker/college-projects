@@ -1,0 +1,115 @@
+/* The columnar layout here is very subtle, but it is here! The unordered list in the "Editorial intervention" is arranged into two columns using a grid display. There wasn't really anywhere else that seemed natural/seamless to use it. */
+
+@media (min-width: 800px) {
+	.container {
+		margin-left: 20%;
+		margin-right: 20%;
+	}
+}
+@media (min-width: 600px) and (max-width: 800px) {
+	.container {
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+}
+
+body {
+	background-image: url("images/background.jpg");
+	background-color: #FFEEDD;
+}
+
+h1, h2, h3, aside { font-family: Georgia, serif; }
+
+aside {
+	margin-left: 25px;
+	font-size: 0.9em;
+}
+
+p {
+	font-family: Garamond, serif;
+	font-size: 1.2em;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+p em {
+	font-family: Times New Roman, serif;
+	font-size: 0.95em;
+}
+caption {
+	font-family: Garamond, serif;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+caption em {
+	font-family: Times New Roman, serif;
+	font-size: 0.95em;
+}
+ul {
+	font-family: Garamond, serif;
+	font-size: auto;
+	text-shadow: 1px 1px 1px #FFFFFF;
+}
+blockquote {
+	font-weight: bold;
+	font-family: Garamond, serif;
+	font-size: 1.2em;
+}
+figcaption {
+	font-family: Garamond, serif;
+	font-size: 1em;
+	width: 40%;
+	border: 2px solid #FFEEDD;
+	box-shadow: 2px 2px 2px #000000;
+	padding: 5px;
+}
+figcaption, img {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+ol {
+	font-family: Garamond, serif;
+	font-size: 1.2em;
+}
+ol em {
+	font-family: Times New Roman, serif;
+	font-size: 0.95em;
+}
+
+h1 {
+	color: #FFFFFF;
+	text-shadow: 2px 2px 2px #000000;
+	border: 2px solid #FFEEDD;
+	box-shadow: 2px 2px 2px #000000;
+	background-image: url("images/header.jpg");
+	background-color: rgba(255, 255, 255, 0.2);
+	background-blend-mode: lighten;
+	padding: 5px;
+	padding-left: 10px;
+}
+
+table {
+	font-family: Times New Roman, serif;
+	border: 1px solid #000000;
+	background-color: #EFEFEF;
+	margin: auto;
+}
+tr { border: 1px solid #000000; }
+th {
+	border: 1px solid #000000;
+	background-color: #55FF55;
+}
+td {
+	border: 1px solid #000000;
+	background-color: #FFFFFF;
+	padding: 5px;
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	grid-template-rows: 1fr;
+	grid-column-gap: 0px;
+	grid-row-gap: 0px;
+	padding-right: 30px;
+}

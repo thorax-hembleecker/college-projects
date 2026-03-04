@@ -1,0 +1,68 @@
+body {
+	background-color: #DFEFF0;
+	color: #333333;
+	font-family: Georgia, "Times New Roman", serif;
+}
+
+h1 {
+	color: #0066BB;
+	border-bottom: 1px solid #BB0000;
+}
+
+h2 {
+	font-style: italic;
+	font-weight: bold;
+	margin-bottom: 0px;
+}
+
+p {
+	margin-top: 10px;
+	margin-left: 25px;
+	line-height: 1.5em;
+}
+
+p:first-child:first-letter { font-size: 18px; } /* Pseudo-class 1 */
+
+.description {	/* Class 1 */
+	font-style: italic;
+	line-height: 0em;
+	padding-bottom: 0.7em;
+	border-bottom: 1px dotted #BB0000;
+	margin-right: 50%;
+}
+
+.kamen {	/* Class 2 */
+	background-color: #EDF6F7;
+	color: #555555;
+	padding-left: 15px;
+	padding-top: 1px;
+	padding-bottom: 15px;
+}
+.kamen h2 {
+	color: #444444;
+}
+
+ol {
+	margin-top: 10px;
+	padding-left: 75px;
+}
+
+ul {
+	margin-top: 10px;
+	padding-left: 75px;
+}
+
+a {
+	color: #000099;
+	text-decoration: none;
+}
+
+a:hover { color: #990000; } /* Pseudo-class 2 */
+
+.reference a {		/* Class 3 */
+	text-decoration: underline;
+}
+
+figure {
+	float: right;	/* I know the instructions said not to alter normal document flow, but this was part of my lab 4 so I figured it made sense to just leave it here. */
+}
