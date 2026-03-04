@@ -1,0 +1,4 @@
+# Hi there. You've stumbled across my README!
+
+The premise of this project was to build a database with a functioning web interface through which the database could be manipulated. Naturally, my partner and I (this was a partner project) decided to make a database of the other students' databases: The Databasebase.
+Again, this was a partner project, so please note that not all work is my own here. I'm also pretty sure my partner didn't write all their own code, to be honest. However, just about all of the taskC folder is my work, and I contributed enough to taskB that I could probably explain what's going on in there if you asked. Cheerio!
