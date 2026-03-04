@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>THE COOL PAGE!!!</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../static/css/styles.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                {% if loggedin == "Yes" %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="THE COOL PAGE">THE COOL PAGE</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.user', id=user.username)}}" title="{{user.username}}">{{user.username}}</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.logout')}}" title="Log Out">Log Out</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="the cool page">the cool page</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.login')}}" title="Log In">Log In</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.signup')}}" title="Sign Up">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container">
+            <main>
+                {% if loggedin == "Yes" %}
+                    <h1>OMG. It's the COOL PAGE. You FOUND IT!!!</h1>
+                    <p>Now you can enter the COOL and RADICAL world of "I GOTTA GET THESE FANS GOING"!!!!</p>
+                    <iframe width="738" height="415" src="https://www.youtube.com/embed/XiY5WicjZBg" title="I Gotta Get these Fans Going" frameborder="0" allowfullscreen></iframe>
+                    <p>Go get those fans going, champ!!!</p>
+                {% else %}
+                    <h1>you're not allowed here dingus</h1>
+                    <img src="../static/img/boringcliffe.png" width="168" height="306">
+                    <p>dingus</p>
+                {% endif %}
+            </main>
+        </div>
+    </body>
+</html>

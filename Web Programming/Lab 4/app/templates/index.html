@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>The Website Where You Have to Log In to See All the Cool Stuff</title>
+        <meta charset="utf=8">
+        <link rel="stylesheet" href="../static/css/styles.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                {% if loggedin == "Yes" %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="THE COOL PAGE">THE COOL PAGE</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.user', id=user.username)}}" title="{{user.username}}">{{user.username}}</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.logout')}}" title="Log Out">Log Out</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="the cool page">the cool page</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.login')}}" title="Log In">Log In</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.signup')}}" title="Sign Up">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container">
+            <main>
+                {% if loggedin == "Yes" %}
+                    <h1>DANIEL BORINGCLIFFE IS NO MORE!!! GET RADICAL!!!</h1>
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <p>This is a website for RAD and AWESOME people. If you are not RAD and AWESOME, then you can SCRAM.</p>
+                {% else %}
+                    <h1>my website</h1>
+                    <img src="../static/img/boringcliffe.png" width="168" height="306">
+                    <p>this is a bad website, but it could be a good website.</p>
+                    <p>the only price you must pay... is to log in.</p>
+                    <p>so log in, ya dingus!</p>
+                {% endif %}
+            </main>
+        </div>
+    </body>
+</html>

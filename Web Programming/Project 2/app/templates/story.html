@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{{ story.title }} by {{ story.author_id }} | Wattpad But Better</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+    </head>
+    <header>
+        <h1><a href="{{url_for('main.index')}}">Wattpad But Better</a></h1>
+    </header>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('main.index')}}">Home</a></li>
+                <li><a href="{{url_for('main.browse')}}">Browse</a></li>
+                {% if loggedin == "Yes" %}
+                <li><a href="{{url_for('main.user', username=user.username)}}">My Stuff</a></li>
+                <li><a href="{{url_for('main.write')}}">New Story</a></li>
+                <li><a href="{{url_for('main.logout')}}">Log Out</a></li>
+                {% else %}
+                <li><a href="{{url_for('main.login')}}">Log In</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div id="container">
+            <main>
+                <h2 class="center">{{ story.title }}</h2>
+                <h3 class="center">Chapter {{ chapter_num }}</h3>
+                <p class="center">by <a href="{{url_for('main.user', username=story.author_id)}}">{{ story.author_id }}</a></p>
+                <p id="text">{{ story.chapters[(chapter_num|int) - 1].text }}</p>
+                {% if story.author_id == user.username %}
+                
+                <div class="flex">
+                    {% if (story.chapters|length) > 1 %}
+                        <div class="delete">
+                            <a href="{{url_for('main.deletechapter', id=story.chapters[(chapter_num|int) - 1].id, story_id=story.id, chapter_num=chapter_num)}}" title="Delete Chapter">Delete Chapter</a>
+                        </div>
+                    {% endif %}
+                    {% if (chapter_num|int) == 1 %}
+                        <div class="delete">
+                            <a href="{{url_for('main.delete', id=story.id)}}" title="Delete Story">Delete Story</a>
+                        </div>
+                    {% endif %}
+                        {% if (story.chapters|length) <= (chapter_num|int) and story.author_id == user.username %}
+                        <div class="clickme">
+                            <a href="{{url_for('main.newchapter', id=story.id)}}" title="New Chapter">New Chapter</a>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </main>
+        </div>
+        <footer>
+            {% if (chapter_num|int) > 1 %}
+                <a class="left" href="{{url_for('main.story', id=story.id, chapter_num=(chapter_num|int) - 1)}}">Previous Chapter</a>
+            {% endif %}
+            {% if (story.chapters|length) > (chapter_num|int) %}
+            <a class="right" href="{{url_for('main.story', id=story.id, chapter_num=(chapter_num|int) + 1)}}">Next Chapter</a>
+            {% endif %}
+        </footer>
+    </body>
+</html>

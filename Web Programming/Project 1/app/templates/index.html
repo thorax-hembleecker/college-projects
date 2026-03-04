@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Home</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+	<nav>
+		<ul>
+			{% if loggedin == "No" %}
+				<li id="left1">
+					<a href="{{url_for('main.login')}}" title="Create a page!">Create a page!</a>
+				</li>
+				<li id="right2">
+					<a href="{{url_for('main.newUser')}}" title="Sign up">Sign up</a>
+				</li>
+				<li id="right1">
+					<a href="{{url_for('main.login')}}" title="Log in">Log in</a>
+				</li>
+			{% else %}
+				<li id="left1">
+					<a href="{{url_for('main.newPage')}}" title="Create a page!">Create a page!</a>
+				</li>
+				<li id="right2">
+					<a href="{{url_for('main.user', id=user.username)}}" title="{{user.displayname}}">{{ user.displayname }}</a>
+				</li>
+				<li id="right1">
+					<a href="{{url_for('main.logout')}}" title="Log out">Log out</a>
+				</li>
+			{% endif %}
+		</ul>
+	</nav>
+	<aside>
+		<ul>
+			<li>
+				<a href="{{url_for('main.index')}}" title="Home">Home</a>
+			</li>
+			<li>
+				<a href="{{url_for('main.pages')}}" title="All pages">All pages</a>
+			</li>
+			<li>
+				<a href="{{url_for('main.users')}}" title="Contributors">Contributors</a>
+			</li>
+		</ul>
+	</aside>
+	<div class="container">
+		<h1>The Grand Wiki of Whatever You Want</h1>
+		<img src="../static/img/logo.png" width="200" height="183" alt="The logo of The Grand Wiki of Whatever You Want, looking suspiciously similar to the Wikipedia logo with the words 'but better' attached.">
+        <p>Mad that you don't have your own Wikipedia page? Now you can!</p>
+		<p>Here on The Grand Wiki of Whatever You Want, you can create your very own pages about whatever you want, with absolutely no oversight or quality control! Truly, the Internet is the eighth wonder of the world.</p>
+		<p>Created by Some Guy in 20XX "just for funsies", the Grand Wiki is a magical place where users create only the coolest of wiki pages. Want to create a shrine to your favorite obscure/terrible movie? Need to invent a source to back up totally unresearched claims in an argument with your colleague? Want to copy-paste entire Wikipedia articles into another site for no reason at all? The Grand Wiki is your place to do all of that and more.</p>
+		<p>Sign up to get wiking!</p>
+		<p>Wikiing?</p>
+		<p>Wikiying?</p>
+		<p>...</p>
+	</div>	
+</body>
+
+</html>

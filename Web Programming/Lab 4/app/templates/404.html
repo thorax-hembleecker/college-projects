@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>404 Error</title>
+        <meta charset="utf=8">
+        <link rel="stylesheet" href="../static/css/styles.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                {% if loggedin == "Yes" %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="THE COOL PAGE">THE COOL PAGE</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.user', id=user.username)}}" title="{{user.username}}">{{user.username}}</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.logout')}}" title="Log Out">Log Out</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="the cool page">the cool page</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.login')}}" title="Log In">Log In</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.signup')}}" title="Sign Up">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container">
+            <main>
+                {% if loggedin == "Yes" %}
+                    <h1>404 ERROR!!! PAGE NOT FOUND!!!</h1>
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <p>PARTY ON, DUDES!!! (but find a different page)</p>
+                {% else %}
+                    <h1>404 error: page not found</h1>
+                    <p>you've somehow managed to make this site even worse.</p>
+                    <p>there isn't even a page here.</p>
+                {% endif %}
+            </main>
+        </div>
+    </body>
+</html>

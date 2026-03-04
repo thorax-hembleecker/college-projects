@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Log In</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            {% if loggedin == "Yes" %}
+                <li>
+                    <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.coolpage')}}" title="THE COOL PAGE">THE COOL PAGE</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.user', id=user.username)}}" title="{{user.username}}">{{user.username}}</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.logout')}}" title="Log Out">Log Out</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.coolpage')}}" title="the cool page">the cool page</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.login')}}" title="Log In">Log In</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.signup')}}" title="Sign Up">Sign Up</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container">
+        <main>
+            {% if loggedin == "Yes" %}
+                <h1>Why are you on this page</h1>
+                <p>begone with you</p>
+            {% else %}
+                <h1>log in to see the cool page</h1>
+                <img src="../static/img/boringcliffe.png" width="168" height="306">
+                <p>daniel boringcliffe commands it</p>
+                <form action="login.html" method="POST">
+                    {{ form.hidden_tag() }}
+                    {{ form.username.label }} {{ form.username() }}
+                    {{ form.password.label }} {{ form.password() }}
+                    {{ form.remember_me.label }} {{ form.remember_me() }}
+                    {{ form.submit() }}
+                </form>
+            {% endif %}
+        </main>
+    </div>
+</body>
+
+</html>

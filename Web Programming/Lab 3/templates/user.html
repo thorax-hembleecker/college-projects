@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>User: {{user.fname}} {{user.lname}}</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+	<div class="container">
+		<h1>{{user.fname}} {{user.lname}}</h1>
+		<div id="personal">
+			<p>Contact: {{user.email}}</p>
+			<p>Born: {{user.dob}}</p>
+		</div>
+		<h2>Friends</h2>
+		<ul>
+			{% for friend in user.friends %}
+				<li><a href="http://127.0.0.1:5000/users/{{friend}}">{{users[friend|string].fname}} {{users[friend|string].lname}}</a></li>
+			{% endfor %}
+		</ul>
+	</div>	
+</body>
+
+</html>

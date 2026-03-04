@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Browse | Wattpad But Better</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
+    </head>
+    <header>
+        <h1><a href="{{url_for('main.index')}}">Wattpad But Better</a></h1>
+    </header>
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{{url_for('main.index')}}">Home</a></li>
+                <li><a href="{{url_for('main.browse')}}">Browse</a></li>
+                {% if loggedin == "Yes" %}
+                <li><a href="{{url_for('main.user', username=user.username)}}">My Stuff</a></li>
+                <li><a href="{{url_for('main.write')}}">New Story</a></li>
+                <li><a href="{{url_for('main.logout')}}">Log Out</a></li>
+                {% else %}
+                <li><a href="{{url_for('main.login')}}">Log In</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div id="container">
+            <main>
+                <h2 class="center">Browse Stories</h2>
+                <ul>
+                {% for story in stories %}
+                <li><a href="{{url_for('main.story', id=story.id, chapter_num=1)}}">"{{ story.title }}"</a> by <a href="{{url_for('main.user', username=story.author_id)}}">{{ story.author_id }}</a></li>
+                {% endfor %}
+                </ul>
+            </main>
+        </div>
+        <footer>
+
+        </footer>
+    </body>
+</html>

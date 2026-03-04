@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>All Pages</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+	<nav>
+		<ul>
+			{% if loggedin == "No" %}
+				<li id="left1">
+					<a href="{{url_for('main.login')}}" title="Create a page!">Create a page!</a>
+				</li>
+				<li id="right2">
+					<a href="{{url_for('main.newUser')}}" title="Sign up">Sign up</a>
+				</li>
+				<li id="right1">
+					<a href="{{url_for('main.login')}}" title="Log in">Log in</a>
+				</li>
+			{% else %}
+				<li id="left1">
+					<a href="{{url_for('main.newPage')}}" title="Create a page!">Create a page!</a>
+				</li>
+				<li id="right2">
+					<a href="{{url_for('main.user', id=user.username)}}" title="{{user.displayname}}">{{ user.displayname }}</a>
+				</li>
+				<li id="right1">
+					<a href="{{url_for('main.logout')}}" title="Log out">Log out</a>
+				</li>
+			{% endif %}
+		</ul>
+	</nav>
+	<aside>
+		<ul>
+			<li>
+				<a href="{{url_for('main.index')}}" title="Home">Home</a>
+			</li>
+			<li>
+				<a href="{{url_for('main.pages')}}" title="All pages">All pages</a>
+			</li>
+			<li>
+				<a href="{{url_for('main.users')}}" title="Contributors">Contributors</a>
+			</li>
+		</ul>
+	</aside>
+	<div class="container">
+		<h1>A Complete List of Existing Pages</h1>
+        {% for page in pages %}
+            <li>
+                <a href="{{url_for('main.page', id=page.url)}}" title="{{page.title}}">{{page.title}}</a>
+            </li>
+        {% endfor %}
+	</div>	
+</body>
+
+</html>

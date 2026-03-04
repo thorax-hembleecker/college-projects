@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>You have been logged out.</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="../static/css/styles.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            {% if loggedin == "Yes" %}
+                <li>
+                    <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.coolpage')}}" title="THE COOL PAGE">THE COOL PAGE</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.user', id=user.username)}}" title="{{user.username}}">{{user.username}}</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.logout')}}" title="Log Out">Log Out</a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.coolpage')}}" title="the cool page">the cool page</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.login')}}" title="Log In">Log In</a>
+                </li>
+                <li>
+                    <a href="{{url_for('main.signup')}}" title="Sign Up">Sign Up</a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+    <div class="container">
+        <main>
+            {% if loggedin == "Yes" %}
+                <h1>Wait, that doesn't compute</h1>
+                <p>This is the logout page, what?</p>
+            {% else %}
+                <h1>you have been successfully logged out</h1>
+                <img src="../static/img/boringcliffe.png" width="168" height="306">
+            {% endif %}
+        </main>
+    </div>
+</body>
+
+</html>

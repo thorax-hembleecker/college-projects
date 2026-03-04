@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <title>User: {{user.username}}</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="../static/css/styles.css">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                {% if loggedin == "Yes" %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="THE COOL PAGE">THE COOL PAGE</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.user', id=user.username)}}" title="{{user.username}}">{{user.username}}</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.logout')}}" title="Log Out">Log Out</a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{url_for('main.index')}}" title="Home">Home</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.coolpage')}}" title="the cool page">the cool page</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.login')}}" title="Log In">Log In</a>
+                    </li>
+                    <li>
+                        <a href="{{url_for('main.signup')}}" title="Sign Up">Sign Up</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container">
+            <main>
+                {% if loggedin == "Yes" %}
+                    <h1>IT'S YOU!!!</h1>
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <img src="../static/img/radcliffe.png" width="138" height="307">
+                    <p>User: {{user.username}}</p>
+                    <p>AKA: The most RADICAL, NON-BORING person ever!!!</p>
+                    <p>Don't be a Daniel Boringcliffe! This is your awesome user page!</p>
+                {% else %}
+                    <h1>{{user.username}}</h1>
+                    <img src="../static/img/boringcliffe.png" width="168" height="306">
+                    <p>why are you here</p>
+                {% endif %}
+            </main>
+        </div>
+    </body>
+</html>
