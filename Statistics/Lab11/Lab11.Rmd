@@ -1,0 +1,88 @@
+---
+title: "Lab 11"
+author: "Thorax Hembleecker"
+date: "20XX-04-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.
+
+```{r 2a-b}
+data(cars)
+summary(cars)
+
+plot(x=cars$speed, y=cars$dist, xlab="Speed", ylab="Stopping Distance")
+
+# Correlation
+r = cor(cars$speed, cars$dist)
+r
+```
+There appears to be a positive linear relationship between speed and stopping distance. There are a couple points that seem like possible unusual points (e.g. (14, 80) and (24, 120)), but even those fit firmly within the overall trajectory.
+
+```{r 2d-f}
+x = cars$speed # Independent
+y = cars$dist # Dependent
+
+x.bar = mean(x)
+y.bar = mean(y)
+x.sd = sd(x)
+y.sd = sd(y)
+
+beta1 = r*(y.sd/x.sd)
+beta1
+
+beta0 = y.bar - beta1*x.bar
+beta0
+```
+On average, the stopping distance will increase by approximately 3.93 feet for every increase of 1 mile per hour in speed. $\beta_0$ has no meaning in context because there will be no stopping distance when the car is not moving, and 0 is outside of our domain (where the minimum observed value is 4).
+
+```{r 2g}
+lm = lm(y~x)
+summary(lm)
+```
+```{r 2h}
+predict(lm, newdata=data.frame(x=21))
+```
+The prediction equation is y = 3.932409x - 17.57909, and the predicted value for x = 21 is 65.001.
+
+```{r 2i}
+plot(x, y, xlab="Speed", ylab="Stopping Distance")
+abline(lm, col="red", lwd=2) # Line width 2.
+```
+## 3.
+
+```{r 3a}
+summary(lm)
+cor(x, y)^2
+```
+$R^2$ is equal to 0.6511, as verified by squaring the correlation.
+
+```{r 3b}
+plot(lm, which=1) # Residual vs. fitted
+plot(lm, which=2) # QQ plot
+```
+All three assumptions remain reasonable, although homoskedasticity may be questionable and the data appears somewhat right-skewed. The regression line is a good fit for the model, and 23, 35, and 49 are unusual points.
+
+## 4.
+
+```{r 4a}
+confint(lm)
+confint(lm, level=0.99)
+```
+```{r 4b}
+sum.lm = summary(lm)
+sum.lm
+
+cor.test(y,x)
+```
+The tests show that stopping distance is indeed associated with speed.
+
+## 5.
+
+```{r 5}
+predict(lm, newdata=data.frame(x=21), interval="confidence")
+```

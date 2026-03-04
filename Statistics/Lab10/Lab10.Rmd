@@ -1,0 +1,95 @@
+---
+title: "Lab 10"
+author: "Thorax Hembleecker"
+date: "20XX-04-16"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.
+
+$H_0: p_1 = 0.2, p_2 = 0.3, p_3 = 0.15, p_4 = 0.1, p_5 = 0.25$ vs. $H_1:$ at least one of these equalities does not hold
+```{r 2a-c}
+n = 300
+obs1 = 62 # Brown hair
+obs2 = 92 # Black hair
+obs3 = 50 # Blonde hair
+obs4 = 25 # Orange hair
+obs5 = 71 # Other hair
+
+p1 = 0.2 # Hypothesized proportion for brown hair
+exp1 = n*p1 # Expected count for brown hair
+cont1 = (obs1 - exp1)^2 / exp1 # Contribution to test statistic
+p2 = 0.3
+exp2 = n*p2
+cont2 = (obs2 - exp2)^2 / exp2
+p3 = 0.15
+exp3 = n*p3
+cont3 = (obs3 - exp3)^2 / exp3
+p4 = 0.1
+exp4 = n*p4
+cont4 = (obs4 - exp4)^2 / exp4
+p5 = 0.25
+exp5 = n*p5
+cont5 = (obs5 - exp5)^2 / exp5
+
+x2.star = cont1 + cont2 + cont3 + cont4 + cont5
+x2.star
+```
+
+```{r 2d}
+pval = 1 - pchisq(x2.star, df=4)
+pval
+pval < 0.05
+```
+The p-value, 0.788, is greater than the significance level, 0.05, so we fail to reject the null hypothesis and conclude that our estimated proportions are not significantly different from the actual proportions.
+
+## 3.
+
+```{r 3}
+categories = c(62, 92, 50, 25, 71)
+nullprob = c(0.2, 0.3, 0.15, 0.1, 0.25)
+chisq.test(categories, p=nullprob) # Goodness-of-fit test
+```
+The test statistic and p-value produced by chisq.test match the ones produced manually.
+
+## 4.
+
+```{r 4}
+library(vcd)
+data(Arthritis)
+
+categories = table(Arthritis$Improved)
+nullprob = c(1/3, 1/3, 1/3)
+chisq.test(categories, p=nullprob)
+```
+The p-value, 0.000912, is less than the significance level, 0.01, so we reject the null hypothesis and conclude that at least one of the true proportions differs from 1/3 (really at least two, since the proportions must add up to 1). Therefore, either marked improvement, no improvement, or some improvement must be more likely than the other options.
+
+## 5.
+
+$H_0: Improved$ is independent of $Treatment$ vs. $H_1: Improved$ is not independent of $Treatment$
+```{r 5}
+chisq.test(table(Arthritis$Improved, Arthritis$Treatment), correct=F)
+```
+The p-value, 0.001, is less than the significance level, 0.05, so we can reject the null hypothesis and conclude that $Improved$ is not independent of $Treatment$, meaning that arthritis treatments do have an impact on whether the patient's symptoms improve.
+
+## 6.
+
+$H_0:$ Having a college degree is not associated with political leanings vs. $H_1:$ Having a college degree is associated with political leanings
+```{r 6a-b}
+datamat = matrix(c(90, 120, 40, 140, 65, 45), ncol=3, byrow=TRUE)
+datamat
+
+colnames(datamat) = c("Rep", "Dem", "Ind")
+rownames(datamat) = c("Yes", "No")
+datatab = as.table(datamat)
+datatab
+```
+
+```{r 6c}
+chisq.test(datatab, correct=F)
+```
+The p-value, 1.06e-6, is less than the presumed significance level of 0.05, so we can reject the null hypothesis and conclude that having a college degree is associated with political leanings.

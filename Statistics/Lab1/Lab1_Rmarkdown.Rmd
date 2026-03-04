@@ -1,0 +1,108 @@
+---
+title: "Lab 1"
+author: "Thorax Hembleecker"
+date: "20XX-01-23"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+``` {r importData, include=FALSE}
+arthritis = read.csv("arthritis.csv")
+```
+
+## Case C Numerical Summaries and Graphics
+
+### Numerical summaries
+
+``` {r caseC1_Num}
+tab1 = table(arthritis$Improved) # tab1 -> absolute frequency
+tab1
+prop.table(tab1) # Relative frequency ("prop" as in proportional)
+```
+
+### Graphical summaries
+
+``` {r caseC1_Graph}
+barplot(tab1) # Absolute frequency bar graph
+barplot(prop.table(tab1)) # Relative frequency bar graph
+```
+
+Observations:
+
+1. The "None" type is the most common in Improvement :(
+
+2. "Some" is the least common
+
+3. It's weird that people either have no improvement or marked improvement
+
+### Summarizing treatment variable
+
+``` {r caseC2}
+tab2 = table(arthritis$Treatment)
+tab2
+prop.table(tab2)
+
+barplot(tab2)
+barplot(prop.table(tab2))
+```
+
+## Case Q Numerical Summaries and Graphics
+
+### Numerical summaries
+
+``` {r caseQ1}
+## Case Q summary for Age variable:
+
+# Centers:
+mean(arthritis$Age)
+median(arthritis$Age)
+library(modeest) # Library for mode function
+mlv(arthritis$Age, method = "mfv") # Mode
+
+# Variablility:
+sd(arthritis$Age) # Standard deviation
+var(arthritis$Age) # Variance
+sqrt(var(arthritis$Age)) # Calculates S.D. from variance
+
+quantile(arthritis$Age, 0.25) # Q1
+quantile(arthritis$Age, c(0.25, 0.75)) # Q1 and Q3
+IQR(arthritis$Age) #IQR
+
+fivenum(arthritis$Age) # Five Number Summary
+summary(arthritis$Age) # Similar, but includes mean
+```
+
+### Graphical summaries
+
+``` {r caseQ1_Graph}
+par(mfrow = c(1,2)) ## Creates a 1x2 matrix, apparently
+# Frequency:
+hist(arthritis$Age, main = "Histogram of Age", xlab = "Age", ylab = "Frequency", col = "aquamarine4")
+# Density:
+hist(arthritis$Age, main = "Histogram of Age", xlab = "Age", ylab = "Density", col = "aquamarine4", freq = FALSE)
+par(mfrow = c(1, 1))
+
+# x/ylab changes x/y-axis label; main changes title of plot
+
+# Mean:
+mean_age = mean(arthritis$Age)
+mean_age
+# Draw histogram...
+hist(arthritis$Age, main = "Histogram of Age", xlab = "Age", col = "lightblue")
+# ...then add line for mean
+abline(v = mean_age, col = "red") # "v" is vertical intercept
+
+boxplot(arthritis$Age, range = 0, main = "Standard (Skeletal) Boxplot of Age", ylab = "Age") # Standard/skeletal boxplot
+boxplot(arthritis$Age, main = "Modified Boxplot of Age", ylab = "Age") # Modified boxplot
+
+library(moments)
+skewness(arthritis$Age)
+
+qqnorm(arthritis$Age)
+qqline(arthritis$Age)
+```
+
+The samples mostly follow the line, but trail off a little at each end.

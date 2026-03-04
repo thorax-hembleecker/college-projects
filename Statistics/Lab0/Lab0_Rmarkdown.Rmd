@@ -1,0 +1,37 @@
+---
+title: "Lab 0 Part B"
+author: "Thorax Hembleecker"
+date: "20XX-01-22"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Why I Am Taking STAT 213
+
+I am working towards a B.S. in computer science, and this is one of the options for required math courses. I never took stats in high school, so I figure I should give myself some familiarity with it.
+
+```{r}
+x = 3
+x
+x^2
+x+5
+```
+
+$$
+\sum_{i=1}^n \left(\frac{x_i^2}{3+i}\right)\\
+\sigma^2+3\times\beta
+$$
+
+```{r importData}
+mydata = read.csv("energy.csv")
+```
+
+```{r readData}
+head(mydata) # head() prints out the first six lines of the dataset
+mean(mydata$Year)
+quantity = mydata$Quantity
+mean(quantity)
+```

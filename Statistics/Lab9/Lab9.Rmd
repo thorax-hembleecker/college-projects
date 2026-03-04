@@ -1,0 +1,93 @@
+---
+title: "Lab 9"
+author: "Thorax Hembleecker"
+date: "20XX-04-09"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.
+
+```{r 2a}
+x = 100
+n = 160
+p.hat = x/n
+alpha = 0.05
+
+confinterval = c(p.hat - qnorm(1-alpha/2)*sqrt(p.hat*(1-p.hat)/n), 
+                 p.hat + qnorm(1-alpha/2)*sqrt(p.hat*(1-p.hat)/n))
+confinterval
+```
+$H_0: p = 0.5$ vs. $H_1: p \ne 0.5$
+```{r 2b}
+p.null = 0.5
+z.star = (p.hat - p.null)/sqrt(p.null*(1-p.null)/n)
+pval = 2*pnorm(-abs(z.star))
+pval
+pval < alpha
+```
+The p-value, 0.00157, is less than the significance level, 0.05, leading us to reject the null hypothesis that the proportion of cancer among males is 50%.
+
+$H_0: p = 0.5$ vs. $H_1: p > 0.5$
+```{r 2c}
+alpha = 0.1
+pval = 1-pnorm(z.star)
+pval
+pval < alpha
+```
+The p-value, this time 0.000783, is once again less than the significance level, 0.1, leading us to reject the null hypothesis in favor of the alternative hypothesis, that the proportion of cancer among males is greater than 0.5.
+
+## 3.
+
+```{r 3}
+prop.test(x=100, n=160, p=0.5, correct = F)
+prop.test(x=100, n=160, p=0.5, alternative = "greater", conf.level = 1-0.1, correct = F)
+```
+The conclusions remain the same from question 2, with the functions giving the same p-values and (as expected) slightly different confidence intervals. Both reject the null hypotheses.
+
+## 4.
+
+```{r 4a}
+x1 = 450
+n1 = 500
+p1.hat = x1/n1
+
+x2 = 400
+n2 = 500
+p2.hat = x2/n2
+
+alpha = 0.1
+
+confinterval = c((p1.hat-p2.hat) - qnorm(1-alpha/2)*sqrt(p1.hat*(1-p1.hat)/n1+p2.hat*(1-p2.hat)/n2),
+                 (p1.hat-p2.hat) + qnorm(1-alpha/2)*sqrt(p1.hat*(1-p1.hat)/n1+p2.hat*(1-p2.hat)/n2))
+confinterval
+```
+$H_0: p_1 - p_2 = 0$ vs. $H_1: p_1 - p_2 \ne 0$
+```{r 4b}
+alpha = 0.1
+pc = (n1*p1.hat + n2*p2.hat)/(n1 + n2)
+z.star = ((p1.hat - p2.hat) - 0)/sqrt(pc*(1-pc)*(1/n1 + 1/n2))
+pval = 2*pnorm(-abs(z.star))
+pval
+pval < alpha
+```
+The p-value, 9.508e-6, is less than the significance level, 0.1, leading us to reject the null hypothesis that the proportion of smokers is the same among both groups.
+
+$H_0: p_1 - p_2 \ge 0$ vs. $H_1: p_1 - p_2 \le 0$
+```{r 4c}
+alpha = 0.01
+pval = pnorm(z.star)
+pval
+pval < alpha
+```
+The p-value, 0.9999952, is greater than the significance level, 0.01, so we fail to reject the null hypothesis that the proportion of smokers in group 1 is greater than or equal to the proportion of smokers in group 2.
+
+## 5.
+
+```{r 5}
+prop.test(c(x1, x2), c(n1, n2), correct = F, alternative = "less", conf.level = 0.99)
+```
+The conclusion remains the same from question 4, with the function giving the same p-value and (as expected) a slightly different boundary for the confidence interval. The confidence interval also differs in that the one constructed for question 4a was two-sided. Both fail to reject the null hypothesis.

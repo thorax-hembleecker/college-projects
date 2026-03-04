@@ -1,0 +1,194 @@
+---
+title: "Lab 6"
+author: "Thorax Hembleecker"
+date: "20XX-03-19"
+output: pdf_document
+---
+
+## 2. Confidence intervals
+
+``` {r 2a}
+data(infert)
+n = length(infert$age) # Sample size.
+sigma = 5
+```
+
+``` {r 2b}
+mean(infert$age) + qnorm(0.975)*sigma/sqrt(n) # Upper bound
+mean(infert$age) - qnorm(0.975)*sigma/sqrt(n) # Lower bound
+```
+
+``` {r 2c}
+mean(infert$age) + qnorm(0.995)*sigma/sqrt(n) # Upper bound
+mean(infert$age) - qnorm(0.995)*sigma/sqrt(n) # Lower bound
+```
+
+``` {r 2d}
+mean(infert$age) + qnorm(0.95)*sigma/sqrt(n) # Upper bound
+mean(infert$age) - qnorm(0.95)*sigma/sqrt(n) # Lower bound
+```
+
+``` {r 2e}
+mean(infert$age) + qnorm(0.95)*sigma/sqrt(n) # Upper bound
+```
+
+``` {r 2f}
+mean(infert$age) - qnorm(0.99)*sigma/sqrt(n) # Lower bound
+```
+
+## 3. t tests
+
+``` {r 3a}
+mean(infert$age) + qt(0.975, df=n-1)*(sd(infert$age)/sqrt(n)) # Upper bound
+mean(infert$age) - qt(0.975, df=n-1)*(sd(infert$age)/sqrt(n)) # Lower bound
+
+t.test(infert$age)
+```
+
+``` {r 3b}
+mean(infert$age) + qt(0.995, df=n-1)*(sd(infert$age)/sqrt(n)) # Upper bound
+mean(infert$age) - qt(0.995, df=n-1)*(sd(infert$age)/sqrt(n)) # Lower bound
+
+t.test(infert$age, conf.level=0.99)
+```
+
+``` {r 3c}
+mean(infert$age) + qt(0.95, df=n-1)*(sd(infert$age)/sqrt(n)) # Upper bound
+
+t.test(infert$age, alternative="less")
+```
+
+``` {r 3d}
+mean(infert$age) - qt(0.95, df=n-1)*(sd(infert$age)/sqrt(n)) # Lower bound
+
+t.test(infert$age, alternative="greater")
+```
+
+``` {r 3e}
+mean(infert$age) + qt(0.99, df=n-1)*(sd(infert$age)/sqrt(n)) # Upper bound
+
+t.test(infert$age, conf.level=0.99, alternative="less")
+```
+
+``` {r 3f}
+mean(infert$age) - qt(0.99, df=n-1)*(sd(infert$age)/sqrt(n)) # Lower bound
+
+t.test(infert$age, conf.level=0.99, alternative="greater")
+```
+
+# Hypothesis Testing
+
+## 4.
+
+``` {r 4a}
+z.star = (15.8-16)/(0.4/sqrt(40)) # Test statistic.
+pnorm(z.star)
+```
+
+``` {r 4b}
+z.star = (16.2-16)/(0.4/sqrt(40)) # Test statistic.
+1 - pnorm(z.star)
+```
+
+``` {r 4c}
+z.star = (191-166.3)/(50/sqrt(30)) # Test statistic.
+2*pnorm(-abs(z.star))
+```
+
+## 5.
+
+``` {r 5a}
+t.star = (19.9-25.2)/(19.8/sqrt(52)) # Test statistic.
+pt(t.star, df=51) # df=n-1
+```
+
+``` {r 5b}
+t.star = (32.9-25.2)/(19.8/sqrt(52)) # Test statistic.
+1 - pt(t.star, df=51)
+```
+
+``` {r 5c}
+t.star = (82.3-71.2)/(34.2/sqrt(40)) # Test statistic.
+2*pt(-abs(t.star), df=39)
+```
+
+## 6.
+
+```{r 6a}
+avocado = read.csv("avocado.csv")
+```
+
+$\ H_0: \mu = 1.7$ vs. $\ H_A: \mu \neq 1.7$
+```{r 6b}
+t.test(avocado$price, mu=1.7)
+```
+Interpretation: Since the p-value = 0.6046 is greater than the significance level, $\alpha$ = 0.05, we fail to reject the null hypothesis. We cannot conclude that the average price of avocado is different from \$1.70.
+We estimate that the price of avocado is on average \$1.732.
+I am 95% confident that the interval (1.6085, 1.8556) contains the true average price of avocado.
+
+$\ H_0: \mu <= 1.3$ vs. $\ H_A: \mu > 1.3$
+```{r 6c}
+t.test(avocado$price, mu=1.3, alt="greater", conf.level=0.99)
+```
+Interpretation: Since the p-value = 2.326e-09 is less than the significance level, $\alpha$ = 0.01, we succeed in rejecting the null hypothesis. We conclude that the average price of avocado is greater than \$1.30.
+We estimate that the price of avocado is on average \$1.732.
+I am 99% confident that the interval (1.5843, infinity) contains the true average price of avocado.
+
+$\ H_0: \mu >= 2$ vs. $\ H_A: \mu < 2$
+```{r 6d}
+t.test(avocado$price, mu=2, alt="less", conf.level=0.90)
+```
+Interpretation: Since the p-value = 3.177e-05 is less than the significance level, $\alpha$ = 0.1, we succeed in rejecting the null hypothesis. We conclude that the average price of avocado is less than \$2.00.
+We estimate that the price of avocado is on average \$1.732.
+I am 90% confident that the interval (-infinity, 1.812) contains the true average price of avocado.
+
+# Power and sample size
+
+## 7.
+
+```{r 7a}
+sd = 0.4
+n = 36
+alpha = 0.05
+mu0 = 16 # Null hypothesis
+mu1 = 15.8 # Alternative hypothesis
+```
+
+```{r 7b}
+x = mu0 + qnorm(alpha)*sd/sqrt(n)
+pnorm((x-mu1)/(sd/sqrt(n)))
+```
+
+```{r 7c}
+mu1 = seq(15.65, 16, 0.001)
+```
+
+```{r 7d}
+n = 36
+x = mu0 + qnorm(alpha)*sd/sqrt(n)
+plot(mu1, pnorm((x-mu1)/(sd/sqrt(n))), type="l", ylab="Power", xlab=expression(mu[1]) )
+
+n = 50
+x = mu0 + qnorm(alpha)*sd/sqrt(n)
+lines(mu1, pnorm((x-mu1)/(sd/sqrt(n))), col=2)
+```
+
+```{r 7e}
+alpha = 0.05
+beta = 0.05
+mu0 = 16
+mu1 = 15.8
+sd = 0.4
+
+ceiling((((qnorm(alpha/2)+qnorm(beta))*sd)/(mu1-mu0))^2) # 2-tailed
+```
+
+```{r 7f}
+alpha = 0.01
+beta = 0.1
+mu0 = 16
+mu1 = 15.8
+sd = 0.4
+
+ceiling((((qnorm(alpha)+qnorm(beta))*sd)/(mu1-mu0))^2)
+```

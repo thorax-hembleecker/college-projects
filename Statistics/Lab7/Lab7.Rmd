@@ -1,0 +1,109 @@
+---
+title: "Lab 7"
+author: "Thorax Hembleecker"
+date: "20XX-03-26"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.
+
+```{r 2a}
+before = c(55, 62, 61, 72, 57)
+after = c(60, 75, 65, 89, 70)
+diff = before - after
+
+m = mean(diff)
+sd = sd(diff)
+n = length(diff)
+t = m/(sd/sqrt(n))
+2*pt(-abs(t), df=n-1) # p-value
+
+t.test(before, after, paired=T, conf.level = 0.99)
+```
+As shown by both the manual and t.test() methods, the p-value (0.015) is greater than alpha (0.01). Therefore, we fail to reject the null hypothesis, and cannot identify a significant change in heart rate after running on a treadmill.
+
+```{r 2b}
+library(MASS)
+data(immer)
+```
+
+For this problem, we are examining paired data: the same measurements of yield, made in two different years.
+
+```{r 2c}
+t.test(immer$Y1, immer$Y2, paired=T, conf.level = 0.95)
+```
+The p-value (0.002) is much less than alpha (0.05), so we succeed in rejecting the null hypothesis and conclude that yield does significantly increase from 1931 to 1932. This is corroborated by the test statistic (3.324), which lies outside the confidence interval of (6.122, 25.705).
+
+## 3.
+
+```{r 3a}
+library(vcd)
+library(grid)
+data(Arthritis)
+```
+
+```{r 3b-d}
+age_m = Arthritis$Age[Arthritis$Sex=="Male"]
+age_f = Arthritis$Age[Arthritis$Sex=="Female"]
+
+t.test(age_m, age_f, var.equal=T, conf.level=0.90) # Equal variance
+t.test(age_m, age_f, conf.level=0.90) # Unequal variance
+
+# Alternatively (same output)
+
+t.test(Arthritis$Age ~ Arthritis$Sex, var.equal=T, conf.level=0.90)
+t.test(Arthritis$Age ~ Arthritis$Sex, conf.level=0.90)
+```
+The p-value (rounding to 0.870 regardless of whether variance is equal) is much greater than alpha (0.1), so we fail to reject the null hypothesis that the two sexes have the same mean age. This is corroborated by the test statistic (+/-0.165), which lies inside the confidence interval of (-/+4.670, +/-5.687).
+
+```{r 3e}
+m1 = 43
+m2 = 41
+s1 = 1.1
+s2 = 1.4
+n1 = 10
+n2 = 12
+sp2 = ((n1-1)*s1^2+(n2-1)*s2^2)/(n1+n2-2) # Pooled variance
+t = (m1-m2)/sqrt(sp2*(1/n1+1/n2)) # t-value
+pt(-abs(t), df=n1+n2-2)
+2*pt(-abs(t), df=n1+n2-2)
+```
+```{r 3f}
+m1 = 43
+m2 = 41
+s1 = 1.1
+s2 = 1.4
+n1 = 10
+n2 = 12
+t = (m1-m2)/sqrt(s1^2/n1+s2^2/n2) # t-value
+df1 = ((s1^2/n1)+(s2^2/n2))^2/((s1^2/n1)^2/(n1-1)+(s2^2/n2)^2/(n2-1))
+pt(-abs(t), df=df1)
+2*pt(-abs(t), df=df1)
+```
+
+## 4.
+
+```{r 4a-b}
+var.test(Arthritis$Age~Arthritis$Sex, conf.level=0.90)
+
+s2_1 = 2.33
+n1 = 10
+s2_2 = 9.97
+n2 = 20
+alpha = 0.05
+f = s2_1/s2_2
+f
+
+pf(f, n1-1, n2-1) # 1-sided lower test
+1-pf(f, n1-1, n2-1) # 1-sided upper test
+2*min(pf(f, n1-1, n2-1), 1-pf(f, n1-1, n2-1)) # 2-sided test
+
+# Critical values
+qf(alpha/2, n1-1, n2-1)
+qf(1-alpha/2, n1-1, n2-1)
+```
+The p-value (0.896) is much greater than alpha (0.05), so we fail to reject the null hypothesis that the two sexes have the same variance of age.

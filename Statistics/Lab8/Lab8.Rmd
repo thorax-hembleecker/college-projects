@@ -1,0 +1,53 @@
+---
+title: "Lab 8"
+author: "Thorax Hembleecker"
+date: "20XX-04-02"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## 2.
+
+$H_0: \mu_1 = \mu_2 = \mu_3$ vs. $H_1:$ Not all means are the same.
+```{r 2b}
+xbar1 = mean(c(5, 4.5, 4, 3))
+xbar2 = mean(c(3.5, 7, 4.5))
+xbar3 = mean(c(8, 4, 3.5))
+
+sd1 = sd(c(5, 4.5, 4, 3))
+sd2 = sd(c(3.5, 7, 4.5))
+sd3 = sd(c(8, 4, 3.5))
+```
+
+```{r 2c}
+TrMS = 2.2458/2
+TrF = TrMS/2.9792
+TrP = 1-pf(TrF, df1=2, df2=8)
+Erdf = 10 - 3
+ErSS = 3*sd1^2 + 2*sd2^2 + 2*sd3^2
+ToSS = 2.2458+ErSS
+
+table = data.frame(Rows=c("Treatment", "Error", "Total"), 
+                   df=c(2, Erdf, 9), SS=c(2.2458, ErSS, ToSS), 
+                   MS=c(TrMS, 2.9792,"N/A"), 
+                   F=c(TrF,"N/A","N/A"), 
+                   pvalue=c(TrP,"N/A","N/A"))
+table
+```
+The table suggests that $H_0$ should not be rejected, because the p-value, 0.698, is greater than 0.05.
+
+## 3.
+
+```{r 3b}
+data("chickwts") # load chickwts dataset
+
+boxplot(chickwts$weight~chickwts$feed, main="Weight by Feed", xlab = "Feed", 
+        ylab="Weight", col="mediumseagreen")
+aov1 = aov(chickwts$weight~chickwts$feed)
+anova(aov1)
+pairwise.t.test(chickwts$weight, chickwts$feed, p.adj="bonferroni")
+```
+The adjusted p-values that are less than 0.05 correspond to the comparisons between casein and horsebean, casein and linseed, casein and soybean, horseban and meatmeal, horsebean and soybean, horsebean and sunflower, linseed and sunflower, and soybean and sunflower. Therefore, these are the significant relationships.

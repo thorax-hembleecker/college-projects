@@ -1,0 +1,106 @@
+---
+title: "Lab 2"
+author: "Thorax Hembleecker"
+date: "20XX-01-30"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Case CQ Numerical Summaries and Graphics
+
+```{r CQ summaries}
+library("MASS")
+data("birthwt") # load birthwt dataset
+
+tapply(X=birthwt$bwt, INDEX=birthwt$race, FUN=mean)
+tapply(X=birthwt$bwt, INDEX=birthwt$race, FUN=sd)
+tapply(X=birthwt$bwt, INDEX=birthwt$race, FUN=median)
+
+boxplot(birthwt$bwt~birthwt$race, main="Birth Weight by Race", xlab = "Race", 
+        ylab="Birth Weight", col="mediumseagreen")
+
+library("dplyr")
+birthwt$race_new = recode_factor(birthwt$race, '1' = 'white', '2' = 'black', '3' = 'other')
+
+boxplot(birthwt$bwt~birthwt$race_new, main="Birth Weight by Race", xlab = "Race", 
+        ylab="Birth Weight", col="mediumseagreen")
+```
+
+Nonwhite individuals seem to have a slightly lower birth weight on average, with Black babies having the lowest overall midrange. White babies have the widest range of birth weights, with no outliers.
+
+``` {r CQ exercise}
+birthwt$smoke_new = recode_factor(birthwt$smoke, '1' = 'yes', '0' = 'no')
+boxplot(birthwt$bwt~birthwt$smoke_new, main="Birth Weight by Smoking", 
+        xlab = "Smoking", ylab="Birth Weight", col="gray")
+
+tapply(X=birthwt$bwt, INDEX=birthwt$smoke_new, FUN=median)
+```
+
+The median birth weight is lower for babies whose mothers smoked during pregnancy. The boxplots also show that the range of birth weights is more varied with non-smoking mothers. Babies born to mothers who smoked during pregnancy had a smaller range of birth weights, covering the lower area of the non-smoking mothers' range.
+
+## Case CC Numerical Summaries and Graphics
+
+``` {r summaries}
+arthritis = read.csv("arthritis.csv")
+
+table1 = table(arthritis$Treatment, arthritis$Sex)
+table1
+addmargins(table1)
+
+table2 = t(table1) # table2 = transpose of table1
+table2
+
+prop.table(table(arthritis$Treatment, arthritis$Sex), margin=1)
+prop.table(table(arthritis$Treatment, arthritis$Sex), margin=2)
+# margin=1 divides by row totals; margin=2 divides by column totals
+
+barplot(prop.table(table1, margin=2), xlab="Sex", legend.text = rownames(table1),
+        col=c("darkcyan", "cornflowerblue")) # Stacked bar plot
+barplot(table2, legend=TRUE, beside=TRUE) # Side-by-side bar plot
+```
+
+Significantly more patients were female than male, as made clear by the numerical summary and side-by-side bar plot. Additionally, all three summaries show that a small majority of female patients received the placebo, while a small majority of male patients received the treatment.
+
+``` {r CC exercise}
+table3 = table(arthritis$Treatment, arthritis$Improved)
+table3
+addmargins(table3)
+
+table4 = t(table3)
+table4
+
+prop.table(table(arthritis$Treatment, arthritis$Improved), margin=1)
+prop.table(table(arthritis$Treatment, arthritis$Improved), margin=2)
+
+barplot(prop.table(table3, margin=2), xlab="Improved", legend.text = rownames(table3),
+        col=c("darkcyan", "cornflowerblue"))
+barplot(table4, legend=TRUE, beside=TRUE)
+```
+
+## Case QQ Numerical Summaries and Graphics
+
+``` {r QQ summaries}
+data(cars)
+summary(cars)
+
+cor(cars$speed, cars$dist) # Correlation
+cov(cars$dist, cars$speed) # Covariance
+
+plot(cars$speed, cars$dist, col="red", pch=20, xlab="Top Speed", ylab="Stopping Distance", 
+     main="Scatterplot Example for Cars") # Scatterplot
+```
+
+The scatterplot appears to show a strong linear positive relationship between top speed and stopping distance, an observation backed up by a positive covariance and a correlation coefficient above 0.8.
+
+``` {r QQ exercise}
+cor(birthwt$age, birthwt$bwt)
+cov(birthwt$age, birthwt$bwt)
+
+plot(birthwt$age, birthwt$bwt, col="red", pch=20, xlab="Age of Mother", ylab="Birth Weight", 
+     main="Scatterplot Example for Birth Weight")
+```
+
+According to the scatterplot, there appears to be no relationship between birth weight and the mother's age. One outlier puts the correlation slightly above 0, but not enough to really throw off the calculation.
