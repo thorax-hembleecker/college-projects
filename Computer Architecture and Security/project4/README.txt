@@ -1,0 +1,1 @@
+This file contains a version of a GPU buffer overflow/code reuse attack. The purpose of the project was to find the correct values of RET_ADDR and ARR_OFFSET to cause the program to print out 11 instead of 1. Similar to the Spectre project, it was designed to be run on a specific server, so it won't really do much elsewhere, but the code at least shows the principle.

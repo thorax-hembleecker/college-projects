@@ -1,0 +1,1 @@
+PLEASE NOTE! This folder contains an implementation of the Spectre cyberattack, based on the very first version proven to be possible, and was tested on a server specifically set up for this project. If your computer has any antivirus at all, you shouldn't be able to run it. That said, uh, don't try to use it for nefarious purposes.
